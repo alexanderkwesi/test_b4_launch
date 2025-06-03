@@ -1,0 +1,26 @@
+{
+  "name": "afrilish-blog",
+  "version": "1.0.0",
+  "description": "Afrilish blog backend with PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "open frontend-template/index.html",
+    "dev": "PORT=3000 concurrently \"npm start\" node backend-server/script.js"
+  },
+  "author": "Afrilish",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "multer": "^2.0.0",
+    "open": "^10.1.2",
+    "path": "^0.12.7",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
