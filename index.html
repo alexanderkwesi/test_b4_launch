@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Afrilish Blog</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .hero-bg {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .post-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .category-tag {
+      transition: all 0.3s ease;
+    }
+    .category-tag:hover {
+      transform: scale(1.05);
+    }
+    .post-card.expanded {
+        transform: none !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+        z-index: 10;
+      }
+      
+      .post-card {
+        transition: all 0.3s ease;
+      }
+      
+      .post-card .post-content {
+        display: none;
+      }
+      
+      .post-card .post-excerpt {
+        display: block;
+      }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+  <!-- Hero Section -->
+  <header class="hero-bg text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Afrilish Blog</h1>
+      <p class="text-xl md:text-2xl mb-8">Discover insights, culture, food, and more from across Africa</p>
+      <div class="flex justify-center space-x-4">
+        <a href="#posts" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-medium">Explore Posts</a>
+        <a href="#create" class="bg-white hover:bg-gray-100 text-green-700 px-6 py-3 rounded-full font-medium">Start Writing</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-screen">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Post creation form (kept the same as requested) -->
+        <!-- Post creation form -->
+<section id="create" class="bg-white p-6 rounded-xl shadow-lg mb-12 border border-gray-200">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Share Your Story</h2>
+    <form id="blogForm" enctype="multipart/form-data">
+      <div class="flex items-start space-x-3">
+        <div class="flex-1">
+          <input id="title" type="text" placeholder="Start a post..." class="w-full p-3 border border-gray-300 rounded-lg mb-3 text-lg" required />
+          <textarea id="content" placeholder="Write more here..." class="w-full p-3 border border-gray-300 rounded-lg mb-3 hidden" rows="3"></textarea>
+          <div class="flex items-center space-x-2 mb-3">
+            <button id="addImageBtn" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center text-xl">
+              <i class="fas fa-image"></i>
+            </button>
+            <input id="imageFile" type="file" accept="image/*" class="hidden" />
+            <input id="image" type="text" placeholder="No image selected" readonly class="w-full p-2 border border-gray-300 rounded bg-gray-50 cursor-default" />
+          </div>
+          <div class="flex justify-between items-center">
+            <small class="text-sm text-gray-500">Click the image icon to add visuals to your post</small>
+            <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 font-medium flex items-center">
+              <i class="fas fa-paper-plane mr-2"></i> Publish
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+      <!-- Featured Categories -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Explore Categories</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="#" class="category-tag bg-amber-100 text-amber-800 p-4 rounded-lg flex flex-col items-center">
+            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1398&q=80" alt="Food" class="w-16 h-16 object-cover rounded-full mb-2">
+            <span class="font-semibold">African Cuisine</span>
+          </a>
+          <a href="#" class="category-tag bg-blue-100 text-blue-800 p-4 rounded-lg flex flex-col items-center">
+            <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Travel" class="w-16 h-16 object-cover rounded-full mb-2">
+            <span class="font-semibold">Travel Guides</span>
+          </a>
+          <a href="#" class="category-tag bg-purple-100 text-purple-800 p-4 rounded-lg flex flex-col items-center">
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Culture" class="w-16 h-16 object-cover rounded-full mb-2">
+            <span class="font-semibold">Culture</span>
+          </a>
+          <a href="#" class="category-tag bg-green-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="History" class="w-16 h-16 object-cover rounded-full mb-2">
+            <span class="font-semibold">History</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Blog posts -->
+<section id="posts">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Latest Posts</h2>
+      <div class="flex items-center space-x-2">
+        <span class="text-gray-600">Sort by:</span>
+        <select class="border border-gray-300 rounded-lg px-3 py-1">
+          <option>Newest</option>
+          <option>Most Popular</option>
+          <option>Trending</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="postsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Sample post 1 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1380&q=80" alt="African food" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">Food</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 1.2k</span>
+              <span class="text-gray-500 text-sm">2 days ago</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">The Rich Flavors of West African Cuisine</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">Exploring the diverse and vibrant food culture from Nigeria to Senegal...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">West African cuisine is a tapestry of flavors, colors, and textures that tell the story of the region's history and cultural exchanges. From the spicy jollof rice of Nigeria to the peanut-based maafe stews of Senegal, each dish carries centuries of tradition.</p>
+            <p class="text-gray-700 mb-4">Key ingredients like yams, plantains, cassava, and a variety of leafy greens form the foundation of many meals. The use of spices such as grains of paradise, dried shrimp, and Scotch bonnet peppers creates complex flavor profiles that are uniquely West African.</p>
+            <p class="text-gray-700 mb-4">Street food culture thrives in cities like Lagos and Accra, where vendors serve everything from suya (spiced grilled meat) to kelewele (spicy fried plantains). Meanwhile, ceremonial dishes like Ghana's fufu and Nigeria's egusi soup continue to play important roles in social gatherings.</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Amina Diallo</span>
+            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sample post 2 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Safari" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Travel</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 2.4k</span>
+              <span class="text-gray-500 text-sm">1 week ago</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">Ultimate Guide to East African Safaris</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">Everything you need to know for an unforgettable wildlife experience...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">East Africa is home to some of the world's most spectacular wildlife reserves and national parks. The annual Great Migration across the Serengeti and Maasai Mara is considered one of nature's greatest spectacles, with over 1.5 million wildebeest, zebras, and gazelles making the journey.</p>
+            <p class="text-gray-700 mb-4">Key destinations include Tanzania's Ngorongoro Crater, a natural amphitheater teeming with wildlife, and Kenya's Amboseli National Park, known for its large elephant herds with Mount Kilimanjaro as a backdrop. For primate enthusiasts, trekking to see mountain gorillas in Rwanda's Volcanoes National Park is a once-in-a-lifetime experience.</p>
+            <p class="text-gray-700 mb-4">The best time to visit varies by location and what you want to see. Generally, the dry seasons (January-February and June-October) offer the best wildlife viewing as animals congregate around water sources. However, the "green season" (November-December) brings lush landscapes and fewer tourists.</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Kwame Asante</span>
+            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sample post 3 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Art" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Art</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 856</span>
+              <span class="text-gray-500 text-sm">3 weeks ago</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">Contemporary African Artists You Should Know</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">A showcase of groundbreaking artists shaping the continent's creative future...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">The contemporary African art scene is experiencing unprecedented global recognition, with artists exploring themes of identity, migration, urbanization, and post-colonial narratives. El Anatsui from Ghana creates monumental tapestries from discarded bottle caps, while South African artist Mary Sibande uses sculpture and photography to examine race and gender in post-apartheid society.</p>
+            <p class="text-gray-700 mb-4">Nigerian-born Njideka Akunyili Crosby's mixed-media works blend personal memories with cultural commentary, earning her international acclaim. Kenyan artist Wangechi Mutu's surreal collages challenge stereotypes about African women and the female body. Meanwhile, Moroccan photographer Lalla Essaydi's work explores Arab female identity through intricate compositions.</p>
+            <p class="text-gray-700 mb-4">Major art fairs like 1-54 (held in London, New York, and Marrakech) and the Dakar Biennale have become important platforms for African artists. Auction houses are also taking notice, with contemporary African art achieving record prices in recent years.</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Naledi Mokoena</span>
+            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-center items-center mt-12 space-x-4">
+      <button id="prevPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
+        <i class="fas fa-chevron-left mr-2"></i> Previous
+      </button>
+      <span id="pageIndicator" class="text-lg font-semibold px-4 py-2 bg-gray-100 rounded-lg">1 of 5</span>
+      <button id="nextPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
+        Next <i class="fas fa-chevron-right ml-2"></i>
+      </button>
+    </div>
+  </section>
+
+      <!-- Featured Video Section -->
+      <section class="mt-16 bg-gray-50 rounded-xl p-8">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold mb-6 text-center">Featured Video</h2>
+          <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-96" src="https://www.youtube.com/embed/7eAG_458Hj0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="mt-4 text-center">
+            <h3 class="text-xl font-semibold">The Taste of Africa: A Culinary Journey</h3>
+            <p class="text-gray-600 mt-2">Join us as we explore the diverse flavors and cooking traditions across the continent</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mt-16 bg-blue-50 py-12 rounded-xl">
+        <div class="max-w-4xl mx-auto px-4">
+          <div class="text-center mb-10">
+            <h3 class="text-3xl font-extrabold text-green-800 mb-2">You've got questions?</h3>
+            <p class="text-xl font-semibold text-green-800">We've got answers</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/3253/3253923.png" alt="FAQ" class="w-20 mx-auto mt-4">
+          </div>
+          <div class="space-y-4">
+
+            <!-- FAQ Item -->
+            <div class="border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
+              <button class="w-full flex justify-between items-center px-6 py-4 bg-white font-semibold text-black uppercase focus:outline-none" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>What is Afrilish?</span>
+                <span class="toggle-icon w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center text-xl font-bold transition-all duration-300 hover:bg-blue-700">+</span>
+              </button>
+              <div class="px-6 py-4 bg-white text-black hidden">
+                Afrilish is a food delivery platform connecting users to African restaurants and culinary experiences across the continent. We celebrate African culture through food, stories, and community.
+              </div>
+            </div>
+
+            <div class="border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
+              <button class="w-full flex justify-between items-center px-6 py-4 bg-white font-semibold text-black uppercase focus:outline-none" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>How can I become a delivery rider?</span>
+                <span class="toggle-icon w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center text-xl font-bold transition-all duration-300 hover:bg-blue-700">+</span>
+              </button>
+              <div class="px-6 py-4 bg-white text-black hidden">
+                You can apply through our website's 'Join Us' page and complete the application process. We're always looking for enthusiastic individuals to join our delivery network across major African cities.
+              </div>
+            </div>
+
+            <div class="border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
+              <button class="w-full flex justify-between items-center px-6 py-4 bg-white font-semibold text-black uppercase focus:outline-none" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>Can I list my restaurant on Afrilish?</span>
+                <span class="toggle-icon w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center text-xl font-bold transition-all duration-300 hover:bg-blue-700">+</span>
+              </button>
+              <div class="px-6 py-4 bg-white text-black hidden">
+                Absolutely! Restaurant owners can register and list their meals to reach a wider customer base. We support both traditional eateries and modern African fusion restaurants. Visit our Partners page to get started.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Newsletter Section -->
+  <section class="w-screen bg-green-700 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-block bg-white text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">STAY UPDATED</div>
+      <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">Get the latest posts, recipes, and cultural insights from across Africa delivered right to your inbox.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg focus:outline-none text-gray-800">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-6 py-3 rounded-lg transition duration-300">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Logo & Description -->
+        <div class="space-y-4">
+          <a href="/" class="flex items-center">
+            <img src="https://via.placeholder.com/150x50?text=Afrilish" alt="Afrilish Logo" class="h-10 w-auto">
+          </a>
+          <p class="text-gray-400">
+            Connecting Africa through food, stories, and culture. Our platform celebrates the diversity and richness of African culinary traditions.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white text-xl" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white text-xl" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white text-xl" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white text-xl" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold">Quick Links</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/about" class="hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> About Us</a></li>
+            <li><a href="/contact" class="hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Contact</a></li>
+            <li><a href="/blog" class="hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Blog</a></li>
+            <li><a href="/careers" class="hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold">Categories</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/blog/food" class="hover:text-white flex items-center"><i class="fas fa-utensils text-xs mr-2"></i> Food & Recipes</a></li>
+            <li><a href="/blog/travel" class="hover:text-white flex items-center"><i class="fas fa-map-marked-alt text-xs mr-2"></i> Travel Guides</a></li>
+            <li><a href="/blog/culture" class="hover:text-white flex items-center"><i class="fas fa-mask text-xs mr-2"></i> Culture & Traditions</a></li>
+            <li><a href="/blog/entrepreneurs" class="hover:text-white flex items-center"><i class="fas fa-lightbulb text-xs mr-2"></i> African Entrepreneurs</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold">Contact Us</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-start">
+              <i class="fas fa-map-marker-alt mt-1 mr-3 text-sm"></i>
+              <span>123 African Street, Nairobi, Kenya</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-phone-alt mr-3 text-sm"></i>
+              <span>+254 700 123 456</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope mr-3 text-sm"></i>
+              <span>hello@afrilish.com</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2023 Afrilish. All rights reserved. | <a href="/privacy" class="hover:text-white">Privacy Policy</a> | <a href="/terms" class="hover:text-white">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+  <script defer src="../scripts/script.js"></script>
+</body>
+</html>
