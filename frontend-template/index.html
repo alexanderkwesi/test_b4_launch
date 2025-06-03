@@ -23,6 +23,23 @@
     .category-tag:hover {
       transform: scale(1.05);
     }
+    .post-card.expanded {
+        transform: none !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+        z-index: 10;
+      }
+      
+      .post-card {
+        transition: all 0.3s ease;
+      }
+      
+      .post-card .post-content {
+        display: none;
+      }
+      
+      .post-card .post-excerpt {
+        display: block;
+      }
   </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
@@ -91,89 +108,127 @@
       </section>
 
       <!-- Blog posts -->
-      <section id="posts">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-2xl font-bold">Latest Posts</h2>
-          <div class="flex items-center space-x-2">
-            <span class="text-gray-600">Sort by:</span>
-            <select class="border border-gray-300 rounded-lg px-3 py-1">
-              <option>Newest</option>
-              <option>Most Popular</option>
-              <option>Trending</option>
-            </select>
+<section id="posts">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Latest Posts</h2>
+      <div class="flex items-center space-x-2">
+        <span class="text-gray-600">Sort by:</span>
+        <select class="border border-gray-300 rounded-lg px-3 py-1">
+          <option>Newest</option>
+          <option>Most Popular</option>
+          <option>Trending</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="postsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Sample post 1 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1380&q=80" alt="African food" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">Food</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 1.2k</span>
+              <span class="text-gray-500 text-sm">2 days ago</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">The Rich Flavors of West African Cuisine</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">Exploring the diverse and vibrant food culture from Nigeria to Senegal...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">West African cuisine is a tapestry of flavors, colors, and textures that tell the story of the region's history and cultural exchanges. From the spicy jollof rice of Nigeria to the peanut-based maafe stews of Senegal, each dish carries centuries of tradition.</p>
+            <p class="text-gray-700 mb-4">Key ingredients like yams, plantains, cassava, and a variety of leafy greens form the foundation of many meals. The use of spices such as grains of paradise, dried shrimp, and Scotch bonnet peppers creates complex flavor profiles that are uniquely West African.</p>
+            <p class="text-gray-700 mb-4">Street food culture thrives in cities like Lagos and Accra, where vendors serve everything from suya (spiced grilled meat) to kelewele (spicy fried plantains). Meanwhile, ceremonial dishes like Ghana's fufu and Nigeria's egusi soup continue to play important roles in social gatherings.</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Amina Diallo</span>
+            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
           </div>
         </div>
-        
-        <!-- Sample post (will be populated dynamically) -->
-        <div id="postsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Sample post 1 -->
-          <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
-            <div class="h-48 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1380&q=80" alt="African food" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-              <div class="flex items-center mb-2">
-                <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">Food</span>
-                <span class="text-gray-500 text-sm ml-auto">2 days ago</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">The Rich Flavors of West African Cuisine</h3>
-              <p class="text-gray-600 mb-4">Exploring the diverse and vibrant food culture from Nigeria to Senegal...</p>
-              <div class="flex items-center">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
-                <span class="text-sm font-medium">Amina Diallo</span>
-              </div>
+      </div>
+      
+      <!-- Sample post 2 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Safari" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Travel</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 2.4k</span>
+              <span class="text-gray-500 text-sm">1 week ago</span>
             </div>
           </div>
-          
-          <!-- Sample post 2 -->
-          <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
-            <div class="h-48 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Safari" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-              <div class="flex items-center mb-2">
-                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Travel</span>
-                <span class="text-gray-500 text-sm ml-auto">1 week ago</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">Ultimate Guide to East African Safaris</h3>
-              <p class="text-gray-600 mb-4">Everything you need to know for an unforgettable wildlife experience...</p>
-              <div class="flex items-center">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
-                <span class="text-sm font-medium">Kwame Asante</span>
-              </div>
-            </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">Ultimate Guide to East African Safaris</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">Everything you need to know for an unforgettable wildlife experience...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">East Africa is home to some of the world's most spectacular wildlife reserves and national parks. The annual Great Migration across the Serengeti and Maasai Mara is considered one of nature's greatest spectacles, with over 1.5 million wildebeest, zebras, and gazelles making the journey.</p>
+            <p class="text-gray-700 mb-4">Key destinations include Tanzania's Ngorongoro Crater, a natural amphitheater teeming with wildlife, and Kenya's Amboseli National Park, known for its large elephant herds with Mount Kilimanjaro as a backdrop. For primate enthusiasts, trekking to see mountain gorillas in Rwanda's Volcanoes National Park is a once-in-a-lifetime experience.</p>
+            <p class="text-gray-700 mb-4">The best time to visit varies by location and what you want to see. Generally, the dry seasons (January-February and June-October) offer the best wildlife viewing as animals congregate around water sources. However, the "green season" (November-December) brings lush landscapes and fewer tourists.</p>
           </div>
-          
-          <!-- Sample post 3 -->
-          <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
-            <div class="h-48 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Art" class="w-full h-full object-cover">
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Kwame Asante</span>
             </div>
-            <div class="p-6">
-              <div class="flex items-center mb-2">
-                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Art</span>
-                <span class="text-gray-500 text-sm ml-auto">3 weeks ago</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">Contemporary African Artists You Should Know</h3>
-              <p class="text-gray-600 mb-4">A showcase of groundbreaking artists shaping the continent's creative future...</p>
-              <div class="flex items-center">
-                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
-                <span class="text-sm font-medium">Naledi Mokoena</span>
-              </div>
-            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
           </div>
         </div>
-        
-        <div class="flex justify-center items-center mt-12 space-x-4">
-          <button id="prevPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
-            <i class="fas fa-chevron-left mr-2"></i> Previous
-          </button>
-          <span id="pageIndicator" class="text-lg font-semibold px-4 py-2 bg-gray-100 rounded-lg">1 of 5</span>
-          <button id="nextPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
-            Next <i class="fas fa-chevron-right ml-2"></i>
-          </button>
+      </div>
+      
+      <!-- Sample post 3 - Updated with read count and expand functionality -->
+      <div class="post-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+        <div class="h-48 overflow-hidden cursor-pointer" onclick="togglePostExpand(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Art" class="w-full h-full object-cover">
         </div>
-      </section>
+        <div class="p-6">
+          <div class="flex items-center mb-2">
+            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Art</span>
+            <div class="flex items-center ml-auto space-x-2">
+              <span class="text-gray-500 text-sm"><i class="fas fa-eye mr-1"></i> 856</span>
+              <span class="text-gray-500 text-sm">3 weeks ago</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2 cursor-pointer" onclick="togglePostExpand(this.parentElement.parentElement)">Contemporary African Artists You Should Know</h3>
+          <p class="text-gray-600 mb-4 post-excerpt">A showcase of groundbreaking artists shaping the continent's creative future...</p>
+          <div class="post-content hidden">
+            <p class="text-gray-700 mb-4">The contemporary African art scene is experiencing unprecedented global recognition, with artists exploring themes of identity, migration, urbanization, and post-colonial narratives. El Anatsui from Ghana creates monumental tapestries from discarded bottle caps, while South African artist Mary Sibande uses sculpture and photography to examine race and gender in post-apartheid society.</p>
+            <p class="text-gray-700 mb-4">Nigerian-born Njideka Akunyili Crosby's mixed-media works blend personal memories with cultural commentary, earning her international acclaim. Kenyan artist Wangechi Mutu's surreal collages challenge stereotypes about African women and the female body. Meanwhile, Moroccan photographer Lalla Essaydi's work explores Arab female identity through intricate compositions.</p>
+            <p class="text-gray-700 mb-4">Major art fairs like 1-54 (held in London, New York, and Marrakech) and the Dakar Biennale have become important platforms for African artists. Auction houses are also taking notice, with contemporary African art achieving record prices in recent years.</p>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm font-medium">Naledi Mokoena</span>
+            </div>
+            <button onclick="togglePostExpand(this.closest('.post-card'))" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              Read more <i class="fas fa-chevron-down ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-center items-center mt-12 space-x-4">
+      <button id="prevPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
+        <i class="fas fa-chevron-left mr-2"></i> Previous
+      </button>
+      <span id="pageIndicator" class="text-lg font-semibold px-4 py-2 bg-gray-100 rounded-lg">1 of 5</span>
+      <button id="nextPage" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center">
+        Next <i class="fas fa-chevron-right ml-2"></i>
+      </button>
+    </div>
+  </section>
 
       <!-- Featured Video Section -->
       <section class="mt-16 bg-gray-50 rounded-xl p-8">
